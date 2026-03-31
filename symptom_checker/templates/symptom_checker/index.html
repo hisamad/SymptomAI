@@ -1,0 +1,166 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="AI-powered symptom checker that predicts probable health conditions and recommended next steps using advanced language models.">
+    <title>SymptomAI — Intelligent Health Checker</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'symptom_checker/css/style.css' %}">
+</head>
+
+<body>
+    <!-- Animated background elements -->
+    <div class="bg-effects">
+        <div class="bg-orb bg-orb-1"></div>
+        <div class="bg-orb bg-orb-2"></div>
+        <div class="bg-orb bg-orb-3"></div>
+        <div class="bg-grid"></div>
+    </div>
+
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="logo">
+                <div class="logo-icon">
+                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="12" y="4" width="8" height="24" rx="2" fill="url(#grad1)" />
+                        <rect x="4" y="12" width="24" height="8" rx="2" fill="url(#grad1)" />
+                        <defs>
+                            <linearGradient id="grad1" x1="4" y1="4" x2="28" y2="28">
+                                <stop offset="0%" stop-color="#60a5fa" />
+                                <stop offset="100%" stop-color="#a78bfa" />
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </div>
+                <h1 class="logo-text">Symptom<span class="logo-highlight">AI</span></h1>
+            </div>
+            <p class="header-subtitle">AI-Powered Health Analysis</p>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Disclaimer Banner -->
+            <div class="disclaimer-banner" id="disclaimer-banner">
+                <div class="disclaimer-icon">⚠️</div>
+                <div class="disclaimer-text">
+                    <strong>Medical Disclaimer:</strong> This tool provides AI-generated insights for
+                    <em>informational purposes only</em>. It is not a substitute for professional medical
+                    advice, diagnosis, or treatment. Always consult a qualified healthcare provider.
+                </div>
+                <button class="disclaimer-close" id="disclaimer-close" aria-label="Close disclaimer">×</button>
+            </div>
+
+            <!-- Input Section -->
+            <section class="input-section glass-card">
+                <div class="section-header">
+                    <div class="section-icon">🩺</div>
+                    <div>
+                        <h2>Describe Your Symptoms</h2>
+                        <p class="section-subtitle">Provide as much detail as possible for a more accurate analysis</p>
+                    </div>
+                </div>
+
+                <div class="input-wrapper">
+                    <textarea id="symptoms-input" class="symptoms-textarea"
+                        placeholder="Example: I've been experiencing a persistent headache for the past 3 days, along with a mild fever (around 100°F), sore throat, and body aches. The headache gets worse in the evening..."
+                        rows="5"></textarea>
+                    <div class="input-footer">
+                        <span class="char-count" id="char-count">0 characters</span>
+                        <button class="analyze-btn" id="analyze-btn">
+                            <span class="btn-text">Analyze Symptoms</span>
+                            <span class="btn-loader" id="btn-loader">
+                                <span class="spinner"></span>
+                                Analyzing...
+                            </span>
+                            <svg class="btn-icon" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                <path d="M4 10H16M16 10L11 5M16 10L11 15" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Results Section (hidden initially) -->
+            <section class="results-section" id="results-section" style="display: none;">
+                <!-- Severity Badge -->
+                <div class="severity-card glass-card" id="severity-card">
+                    <div class="severity-header">
+                        <h3>Overall Assessment</h3>
+                        <div class="severity-badge" id="severity-badge">
+                            <span class="severity-dot"></span>
+                            <span class="severity-text" id="severity-text">—</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Conditions -->
+                <div class="conditions-section">
+                    <h3 class="results-title">
+                        <span class="results-title-icon">📋</span>
+                        Probable Conditions
+                    </h3>
+                    <div class="conditions-grid" id="conditions-grid">
+                        <!-- Condition cards injected by JS -->
+                    </div>
+                </div>
+
+                <!-- Next Steps -->
+                <div class="next-steps-section glass-card">
+                    <h3 class="results-title">
+                        <span class="results-title-icon">✅</span>
+                        Recommended Next Steps
+                    </h3>
+                    <ol class="next-steps-list" id="next-steps-list">
+                        <!-- Steps injected by JS -->
+                    </ol>
+                </div>
+
+                <!-- Disclaimer Footer -->
+                <div class="result-disclaimer" id="result-disclaimer">
+                    <p id="result-disclaimer-text"></p>
+                </div>
+            </section>
+
+            <!-- Error Section -->
+            <section class="error-section glass-card" id="error-section" style="display: none;">
+                <div class="error-icon">⚡</div>
+                <h3 class="error-title" id="error-title">Something went wrong</h3>
+                <p class="error-message" id="error-message"></p>
+                <button class="retry-btn" id="retry-btn">Try Again</button>
+            </section>
+
+            <!-- History Section -->
+            <section class="history-section" id="history-section" style="display: none;">
+                <div class="history-header">
+                    <h3>
+                        <span class="results-title-icon">🕐</span>
+                        Recent Analyses
+                    </h3>
+                    <button class="clear-history-btn" id="clear-history-btn">Clear History</button>
+                </div>
+                <div class="history-list" id="history-list">
+                    <!-- History items injected by JS -->
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="app-footer">
+            <p>Powered by <strong>Local Model</strong> via Ollama • Built with Django</p>
+        </footer>
+    </div>
+
+    <script src="{% static 'symptom_checker/js/app.js' %}"></script>
+</body>
+
+</html>
