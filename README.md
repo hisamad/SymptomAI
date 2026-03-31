@@ -1,6 +1,6 @@
 # SymptomAI — Intelligent Health Checker
 
-SymptomAI is an AI-powered symptom checker application built with Django and Ollama. It takes user symptoms as natural language text input and uses the **Qwen 3.5:2B** language model to predict probable health conditions, assess severity, and recommend next steps. 
+SymptomAI is an AI-powered symptom checker application built with Django and Ollama. It takes user symptoms as natural language text input and uses the **Granite3.3:2B** language model to predict probable health conditions, assess severity, and recommend next steps. 
 
 It features a modern, responsive, dark-themed UI with glassmorphism effects and real-time inference using a locally hosted LLM.
 
