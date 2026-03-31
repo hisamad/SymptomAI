@@ -36,11 +36,14 @@ ollama pull granite3.3:2b
 Wait for the download to complete. You can verify it's available by running `ollama list`.
 
 ### 2. Set Up the Django Project
-Navigate to the project directory:
+Clone the repository : 
 ```bash
-cd samad-project
+git clone https://github.com/hisamad/SymptomAI.git
 ```
-
+Go into the project directory :
+```bash 
+cd SymptomAI
+```
 The project uses `uv` for dependency management. Install dependencies and set up the virtual environment by running:
 ```bash
 uv sync
@@ -93,7 +96,7 @@ Once both are running, open your web browser and navigate to:
 ## Project Structure
 
 ```text
-samad-project/
+SymptomAI/
 ├── pyproject.toml              # uv project configuration
 ├── manage.py                   # Django management script
 ├── config/                     # Django core settings
