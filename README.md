@@ -119,3 +119,6 @@ samad-project/
   Depending on your hardware, running a 2B parameter LLM locally can take some time. The backend timeout is configured for a long threshold (1200s) to accommodate older hardware. Be patient while the "Analyzing..." spinner is active.
 - **Model not found:**
   Ensure you ran `ollama pull granite3.3:2b`. Check your `settings.py` if you downloaded a differently tagged model version.
+## 📸 Screenshots
+
+![Home UI](screenshots/home.png)
